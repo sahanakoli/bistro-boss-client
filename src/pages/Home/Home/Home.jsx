@@ -1,4 +1,5 @@
 import Banner from "../../../components/Banner/Banner";
+import ChefService from "../../../components/ChefService/ChefService";
 import Category from "../Category/Category";
 
 
@@ -8,6 +9,7 @@ const Home = () => {
         <div>
            <Banner></Banner> 
            <Category></Category>
+           <ChefService></ChefService>
         </div>
     );
 };
