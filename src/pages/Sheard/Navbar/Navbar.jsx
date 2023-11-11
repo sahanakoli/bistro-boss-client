@@ -4,8 +4,11 @@ const Navbar = () => {
 
     const navLink = <>
        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Item 1</a></li>
-                            <li><a>Item 3</a></li>
+                            <navLink to='/'>Home</navLink>
+                            <navLink to='/contactUs'>Contact Us</navLink>
+                            <navLink to='/dashBoard'>DashBoard</navLink>
+                            <navLink to='/ourMenu'>Our Menu</navLink>
+                            
                         </ul>
     </>
     return (
