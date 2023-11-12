@@ -1,8 +1,10 @@
 import Banner from "../../../components/Banner/Banner";
 import Category from "../Category/Category";
+import ChefRecommends from "../ChefRecommends/ChefRecommends";
 import ChefService from "../ChefService/ChefService";
+import Contact from "../Contact/Contact";
 import PopularMenu from "../PopularMenu/PopularMenu";
-import ViewMenu from "../ViewMenu/ViewMenu";
+
 
 
 
@@ -13,7 +15,8 @@ const Home = () => {
            <Category></Category>
            <ChefService></ChefService>
            <PopularMenu></PopularMenu>
-           <ViewMenu></ViewMenu>
+           <Contact></Contact>
+           <ChefRecommends></ChefRecommends>
         </div>
     );
 };
