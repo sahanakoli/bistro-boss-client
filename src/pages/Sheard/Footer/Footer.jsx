@@ -2,7 +2,7 @@
 
 const Footer = () => {
     return (
-        <div>
+        <div className="mt-16">
             <footer>
                 <div className="footer p-10 bg-neutral text-neutral-content">
                     <aside>
