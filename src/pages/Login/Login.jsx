@@ -1,7 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
-import loginImg from '../../assets/others/authentication1.png'
+import loginImg from '../../assets/others/authentication1.png';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { useEffect, useRef, useState } from 'react';
 
 const Login = () => {
+
+    const captchaRef = useRef(null);
+    const [disable, setDisable] = useState(true);
+
     const handleLogin = event =>{
         event.preventDefault();
 
@@ -10,8 +17,20 @@ const Login = () => {
         const password = form.password.value;
         console.log(email,password);
 
-
     }
+
+    useEffect(() =>{
+        loadCaptchaEnginge(6); 
+    }, [])
+
+    const handleValidateCaptchar = () => {
+       const user_captcha_value = captchaRef.current.value;
+       if(validateCaptcha(user_captcha_value)){
+           setDisable(false);
+       }
+       
+    }
+    
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
@@ -37,8 +56,15 @@ const Login = () => {
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
                             </div>
+                            <div className="form-control">
+                                <label className="label">
+                                <LoadCanvasTemplate />
+                                </label>
+                                <input type="text" ref={captchaRef} name='captcha' placeholder="type the text captcha above" className="input input-bordered" required />
+                                <button onClick={handleValidateCaptchar} className='btn btn-outline btn-xs mt-2'>Validate</button>
+                            </div>
                             <div className="form-control mt-6 mb-3">
-                                <input className="btn bg-[#D1A054]" type="submit" value="Sign In" />
+                                <input disabled={disable} className="btn bg-[#D1A054]" type="submit" value="Sign In" />
                             </div>                
                             <p className='ml-16'>New here? Create a New Account <Link to='/signUp' className=' text-[#D1A054]'>Registration</Link></p>
                         </form>
