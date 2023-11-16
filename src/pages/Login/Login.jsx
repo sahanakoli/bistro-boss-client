@@ -2,12 +2,16 @@
 import { Link } from 'react-router-dom';
 import loginImg from '../../assets/others/authentication1.png';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { useEffect, useRef, useState } from 'react';
+import {  useContext, useEffect, useRef, useState } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+
 
 const Login = () => {
 
     const captchaRef = useRef(null);
     const [disable, setDisable] = useState(true);
+
+    const {signIn} = useContext(AuthContext);
 
     const handleLogin = event =>{
         event.preventDefault();
@@ -16,6 +20,12 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email,password);
+        signIn(email, password)
+        .then(result =>{
+           const user = result.user;
+           console.log(user);
+           event.target.reset();
+        })
 
     }
 
@@ -66,7 +76,7 @@ const Login = () => {
                             <div className="form-control mt-6 mb-3">
                                 <input disabled={disable} className="btn bg-[#D1A054]" type="submit" value="Sign In" />
                             </div>                
-                            <p className='ml-16'>New here? Create a New Account <Link to='/signUp' className=' text-[#D1A054]'>Registration</Link></p>
+                            <p className='ml-16'>New here? Create a New Account <Link to='/signUp' className=' text-[#D1A054]'>Sign Up</Link></p>
                         </form>
                     </div>
                 </div>
