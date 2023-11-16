@@ -33,10 +33,22 @@ const Navbar = () => {
                     </div>
                     <a className=" normal-case text-xl font-semibold">BISTRO BOSS</a>
                 </div>
-                <div className="navbar-end hidden lg:flex">
-                    <ul className="menu text-white menu-horizontal px-1">
+                <div className="navbar-center hidden lg:flex">
+                <ul className="menu text-white menu-horizontal px-1">
                         {navLink}
                     </ul>
+                </div>
+                <div className="navbar-end">
+                    {
+                        user ?
+                            <div className=" flex-row lg:flex justify-center items-center mr-4 gap-2">
+                                <p className=" text-lg font-semibold">{user?.displayName}</p>
+                                <img className=" w-12 h-12 rounded-full" src={user?.photoURL ? user.photoURL : `https://i.ibb.co/D9wWRM6/olivia.jpg`} alt="" />
+                            </div>
+                            :
+                            <div>
+                            </div>
+                    }
                     {
         user ?
         <button onClick={handleLogOut} className="btn bg-[#D1A054] text-white">Sign Out</button>
