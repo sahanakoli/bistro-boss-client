@@ -7,6 +7,8 @@ import Menu from "../pages/Menu/Menu";
 import Order from "../pages/Order/Order/Order";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUP/SignUp";
+import Secret from "../pages/Sheard/Secret/Secret";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -36,6 +38,10 @@ import SignUp from "../pages/SignUP/SignUp";
         {
           path:'signUp',
           element:<SignUp></SignUp>
+        },
+        {
+          path:'secret',
+          element:<PrivateRoute><Secret></Secret></PrivateRoute>
         }
       ]
     },

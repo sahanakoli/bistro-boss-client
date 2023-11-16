@@ -1,17 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/others/authentication1.png';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import {  useContext, useEffect, useRef, useState } from 'react';
+import {  useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
+import { FcGoogle } from "react-icons/fc";
 
 
 const Login = () => {
 
-    const captchaRef = useRef(null);
-    const [disable, setDisable] = useState(true);
+    const [disabled, setDisabled] = useState(true);
 
     const {signIn} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { googleSignIn } = useContext(AuthContext);
+
+    const from = location.state?.pathname || '/';
 
     const handleLogin = event =>{
         event.preventDefault();
@@ -25,6 +31,15 @@ const Login = () => {
            const user = result.user;
            console.log(user);
            event.target.reset();
+
+           Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User Login Successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate(from, { replace: true});
         })
 
     }
@@ -33,12 +48,24 @@ const Login = () => {
         loadCaptchaEnginge(6); 
     }, [])
 
-    const handleValidateCaptchar = () => {
-       const user_captcha_value = captchaRef.current.value;
+    const handleValidateCaptcha = (e) => {
+       const user_captcha_value = e.target.value;
        if(validateCaptcha(user_captcha_value)){
-           setDisable(false);
+           setDisabled(false);
        }
-       
+       else{
+        setDisabled(true)
+       }
+    }
+
+    const handleGoogle = () =>{
+        googleSignIn()
+        .then(result =>{
+            console.log(result.user)
+        })
+        .catch(error =>{
+            console.error(error)
+        })
     }
     
     return (
@@ -48,8 +75,8 @@ const Login = () => {
                     <div className="w-1/2 mr-12">
                         <img src={loginImg} alt="" />
                     </div>
-                    <div className="card flex-shrink-0 md:w-1/2 max-w-sm shadow-2xl bg-base-100">
-                        <form onSubmit={handleLogin} className="card-body">
+                    <div className="card mt-28 flex-shrink-0 md:w-1/2 max-w-sm shadow-2xl bg-base-100">
+                        <form onSubmit={handleLogin} className="card-body ">
                         <h1 className="text-3xl font-bold text-center">Login</h1>
                             <div className="form-control">
                                 <label className="label">
@@ -70,11 +97,11 @@ const Login = () => {
                                 <label className="label">
                                 <LoadCanvasTemplate />
                                 </label>
-                                <input type="text" ref={captchaRef} name='captcha' placeholder="type the text captcha above" className="input input-bordered" required />
-                                <button onClick={handleValidateCaptchar} className='btn btn-outline btn-xs mt-2'>Validate</button>
+                                <input onBlur={handleValidateCaptcha} type="text" name='captcha' placeholder="type the text captcha above" className="input input-bordered" required />
                             </div>
                             <div className="form-control mt-6 mb-3">
-                                <input disabled={disable} className="btn bg-[#D1A054]" type="submit" value="Sign In" />
+                                <input disabled={false} className="btn bg-[#D1A054] text-white" type="submit" value="Login" />
+                                <button onClick={handleGoogle}  className="btn font-medium bg-[#D1A054] text-white mt-4"><FcGoogle className="mr-2 w-4 h-4"></FcGoogle>Google Sign In</button>
                             </div>                
                             <p className='ml-16'>New here? Create a New Account <Link to='/signUp' className=' text-[#D1A054]'>Sign Up</Link></p>
                         </form>

@@ -5,20 +5,47 @@ import { useForm } from "react-hook-form"
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from "sweetalert2";
+import { FcGoogle } from "react-icons/fc";
 
 
 
 const SignUp = () => {
-    const {register,handleSubmit,formState: { errors }} = useForm();
-    const {createUser} = useContext(AuthContext);
+    const {register,handleSubmit, reset,formState: { errors }} = useForm();
+    const {createUser, updateUserProfile } = useContext(AuthContext);
+    const { googleSignIn } = useContext(AuthContext);
 
 
-      const onSubmit = data => 
+      const onSubmit = data =>{ 
       createUser(data.email, data.password)
       .then(result =>{
         const loggedUser = result.user;
-        console.log(loggedUser)
+        console.log(loggedUser);
+        updateUserProfile(data.name, data.photoURL)
+        .then(() =>{
+          console.log('user profile updated')
+          reset();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User Sign Up Successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+        .catch(error => console.log(error))
       })
+    };
+      const handleGoogle = () =>{
+        googleSignIn()
+        .then(result =>{
+            console.log(result.user)
+        })
+        .catch(error =>{
+            console.error(error)
+        })
+    }
+
     return (
         <div>
             <Helmet>
@@ -41,18 +68,18 @@ const SignUp = () => {
                             </div>
                             <div className="form-control">
                                 <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
+                                {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
                                 <input type="email" {...register("email", { required: true })} name='email' placeholder="email" className="input input-bordered" />
                                 {errors.email && <span className=" text-red-600">Email is required</span>}
                             </div>
-                            {/* <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Photo URL</span>
-                                </label>
-                                <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
-                                {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
-                            </div> */}
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
@@ -70,7 +97,8 @@ const SignUp = () => {
                                 </label>
                             </div>
                             <div className="form-control mt-6 mb-3">
-                                <input className="btn bg-[#D1A054]" type="submit" value="Sign Up" />                    
+                                <input className="btn bg-[#D1A054] text-white" type="submit" value="Sign Up" />
+                                <button onClick={handleGoogle}  className="btn font-medium bg-[#D1A054] text-white mt-4"><FcGoogle className="mr-2 w-4 h-4"></FcGoogle>Google Sign In</button>                    
                                 <p className='ml-16'>Already have an account? <Link to='/login' className=' text-[#D1A054]'>Login</Link></p>
                             </div>
                         </form>
