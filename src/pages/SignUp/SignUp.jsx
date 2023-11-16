@@ -37,7 +37,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" {...register("password", { required: true })} name='password' placeholder="password" className="input input-bordered" required />
+                                <input type="password" {...register("password", { required: true, minLength:6, maxLength:20 })} name='password' placeholder="password" className="input input-bordered" required />
                                 {errors.password && <span className=" text-red-600">Password is required</span>}
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
