@@ -1,23 +1,29 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
-
+import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
-    const {user, logOut} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
 
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         logOut()
-        .then(() =>{})
-        .catch(error => console.log(error));
+            .then(() => { })
+            .catch(error => console.log(error));
     }
 
     const navLink = <>
-                <li><NavLink to='/'>HOME</NavLink></li>
-                <li><NavLink to='/contactUs'>CONTACT US</NavLink></li>
-                <li><NavLink to='/order/salad'>ORDER FOOD</NavLink></li>
-                <li><NavLink to='/menu'><span className=" text-yellow-400">OUR MENU</span></NavLink></li>
-                <li><NavLink to='/secret'>SECRET</NavLink></li>
+        <li><NavLink to='/'>HOME</NavLink></li>
+        <li><NavLink to='/contactUs'>CONTACT US</NavLink></li>
+        <li><NavLink to='/order/salad'>ORDER FOOD</NavLink></li>
+        <li><NavLink to='/menu'><span className=" text-yellow-400">OUR MENU</span></NavLink></li>
+        <li><NavLink to='/secret'>SECRET</NavLink></li>
+        <li><NavLink to='/'>
+            <button className="pt-1">
+              <FaCartShopping className="mr-2" />
+              <div className="badge badge-secondary">+99</div>
+            </button>
+        </NavLink></li>
     </>
     return (
         <div>
@@ -34,7 +40,7 @@ const Navbar = () => {
                     <a className=" normal-case text-xl font-semibold">BISTRO BOSS</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                <ul className="menu text-white menu-horizontal px-1">
+                    <ul className="menu text-white menu-horizontal px-1">
                         {navLink}
                     </ul>
                 </div>
@@ -50,15 +56,15 @@ const Navbar = () => {
                             </div>
                     }
                     {
-        user ?
-        <button onClick={handleLogOut} className="btn bg-[#D1A054] text-white">Sign Out</button>
-        :
-        <Link to="/login">
-            <button className="btn bg-[#D1A054] text-white">Login</button>
-        </Link>
-      }
+                        user ?
+                            <button onClick={handleLogOut} className="btn bg-[#D1A054] text-white">Sign Out</button>
+                            :
+                            <Link to="/login">
+                                <button className="btn bg-[#D1A054] text-white">Login</button>
+                            </Link>
+                    }
                 </div>
-                
+
             </div>
         </div>
     );
