@@ -18,6 +18,7 @@ const Login = () => {
     const { googleSignIn } = useContext(AuthContext);
 
     const from = location.state?.pathname || '/';
+    console.log('state in the login page', location.state)
 
     const handleLogin = event =>{
         event.preventDefault();
@@ -97,10 +98,11 @@ const Login = () => {
                                 <label className="label">
                                 <LoadCanvasTemplate />
                                 </label>
-                                <input onBlur={handleValidateCaptcha} type="text" name='captcha' placeholder="type the text captcha above" className="input input-bordered" required />
+                                <input onBlur={handleValidateCaptcha} type="text" name='captcha' placeholder="type the text captcha above" className="input input-bordered" />
                             </div>
                             <div className="form-control mt-6 mb-3">
-                                <input disabled={false} className="btn bg-[#D1A054] text-white" type="submit" value="Login" />
+                                {/* TODO: apply disable for re captcha */}
+                                <input disabled={disabled} className="btn bg-[#D1A054] text-white" type="submit" value="Login" />
                                 <button onClick={handleGoogle}  className="btn font-medium bg-[#D1A054] text-white mt-4"><FcGoogle className="mr-2 w-4 h-4"></FcGoogle>Google Sign In</button>
                             </div>                
                             <p className='ml-16'>New here? Create a New Account <Link to='/signUp' className=' text-[#D1A054]'>Sign Up</Link></p>
