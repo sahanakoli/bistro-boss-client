@@ -6,8 +6,8 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from "sweetalert2";
-import { FcGoogle } from "react-icons/fc";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 
 
@@ -16,7 +16,6 @@ const SignUp = () => {
     const axiosPublic  = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
-    const { googleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = data => {
@@ -51,15 +50,6 @@ const SignUp = () => {
                     .catch(error => console.log(error))
             })
     };
-    const handleGoogle = () => {
-        googleSignIn()
-            .then(result => {
-                console.log(result.user)
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }
 
     return (
         <div>
@@ -114,9 +104,10 @@ const SignUp = () => {
                             </div>
                             <div className="form-control mt-6 mb-3">
                                 <input className="btn bg-[#D1A054] text-white" type="submit" value="Sign Up" />
-                                <button onClick={handleGoogle} className="btn font-medium bg-[#D1A054] text-white mt-4"><FcGoogle className="mr-2 w-4 h-4"></FcGoogle>Google Sign In</button>
-                                <p className='ml-16'>Already have an account? <Link to='/login' className=' text-[#D1A054]'>Login</Link></p>
                             </div>
+                            <p className='ml-16 '>Already have an account? <Link to='/login' className=' text-[#D1A054]'>Login</Link></p>
+                            <div className='divider'></div>
+                            <SocialLogin></SocialLogin>
                         </form>
                     </div>
                 </div>

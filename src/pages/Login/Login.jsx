@@ -5,7 +5,8 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import {  useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
-import { FcGoogle } from "react-icons/fc";
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
+
 
 
 const Login = () => {
@@ -15,8 +16,6 @@ const Login = () => {
     const {signIn} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const { googleSignIn } = useContext(AuthContext);
-
     const from = location.state?.pathname || '/';
     console.log('state in the login page', location.state)
 
@@ -59,15 +58,6 @@ const Login = () => {
        }
     }
 
-    const handleGoogle = () =>{
-        googleSignIn()
-        .then(result =>{
-            console.log(result.user)
-        })
-        .catch(error =>{
-            console.error(error)
-        })
-    }
     
     return (
         <div>
@@ -103,9 +93,10 @@ const Login = () => {
                             <div className="form-control mt-6 mb-3">
                                 {/* TODO: apply disable for re captcha */}
                                 <input disabled={disabled} className="btn bg-[#D1A054] text-white" type="submit" value="Login" />
-                                <button onClick={handleGoogle}  className="btn font-medium bg-[#D1A054] text-white mt-4"><FcGoogle className="mr-2 w-4 h-4"></FcGoogle>Google Sign In</button>
                             </div>                
                             <p className='ml-16'>New here? Create a New Account <Link to='/signUp' className=' text-[#D1A054]'>Sign Up</Link></p>
+                            <div className='divider'></div>
+                            <SocialLogin></SocialLogin>
                         </form>
                     </div>
                 </div>
