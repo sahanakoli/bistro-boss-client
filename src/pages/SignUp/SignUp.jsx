@@ -7,44 +7,58 @@ import { useContext } from "react";
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 
 const SignUp = () => {
-    const {register,handleSubmit, reset,formState: { errors }} = useForm();
-    const {createUser, updateUserProfile } = useContext(AuthContext);
+
+    const axiosPublic  = useAxiosPublic();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const { googleSignIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
-      const onSubmit = data =>{ 
-      createUser(data.email, data.password)
-      .then(result =>{
-        const loggedUser = result.user;
-        console.log(loggedUser);
-        updateUserProfile(data.name, data.photoURL)
-        .then(() =>{
-          console.log('user profile updated')
-          reset();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User Sign Up Successfully",
-            showConfirmButton: false,
-            timer: 1500
-          });
-          navigate('/');
-        })
-        .catch(error => console.log(error))
-      })
+    const onSubmit = data => {
+        createUser(data.email, data.password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        // create user entry in the database
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email
+                        }
+
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to the database')
+                                    reset();
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "User Sign Up Successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/');
+                                }
+                            })
+                    })
+                    .catch(error => console.log(error))
+            })
     };
-      const handleGoogle = () =>{
+    const handleGoogle = () => {
         googleSignIn()
-        .then(result =>{
-            console.log(result.user)
-        })
-        .catch(error =>{
-            console.error(error)
-        })
+            .then(result => {
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
     return (
@@ -85,11 +99,12 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" {...register("password", { required: true, 
-                                    minLength:6, 
-                                    maxLength:20, 
+                                <input type="password" {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    maxLength: 20,
                                     pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                                    })} name='password' placeholder="password" className="input input-bordered" />
+                                })} name='password' placeholder="password" className="input input-bordered" />
                                 {errors.password?.type === 'required' && <p className=" text-red-600">Password is required</p>}
                                 {errors.password?.type === 'minLength' && <p className=" text-red-600">Password must be 6 characters</p>}
                                 {errors.password?.type === 'maxLength' && <p className=" text-red-600">Password must be less then 20 characters</p>}
@@ -99,7 +114,7 @@ const SignUp = () => {
                             </div>
                             <div className="form-control mt-6 mb-3">
                                 <input className="btn bg-[#D1A054] text-white" type="submit" value="Sign Up" />
-                                <button onClick={handleGoogle}  className="btn font-medium bg-[#D1A054] text-white mt-4"><FcGoogle className="mr-2 w-4 h-4"></FcGoogle>Google Sign In</button>                    
+                                <button onClick={handleGoogle} className="btn font-medium bg-[#D1A054] text-white mt-4"><FcGoogle className="mr-2 w-4 h-4"></FcGoogle>Google Sign In</button>
                                 <p className='ml-16'>Already have an account? <Link to='/login' className=' text-[#D1A054]'>Login</Link></p>
                             </div>
                         </form>
