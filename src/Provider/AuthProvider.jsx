@@ -42,7 +42,9 @@ const AuthProvider = ({children}) => {
             if(currentUser){
                 // get token and store client
             }
-            
+            else{
+                // do something
+            }
             setLoading(false);
         });
         return () =>{
