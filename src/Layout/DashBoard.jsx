@@ -3,10 +3,11 @@ import { FiMenu } from "react-icons/fi";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import { MdContactMail, MdRateReview } from "react-icons/md";
+import useAdmin from "../hooks/useAdmin";
 
 const DashBoard = () => {
     const [cart] = useCart();
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex">
@@ -15,50 +16,51 @@ const DashBoard = () => {
                 <ul className="menu p-4">
                     {
                         isAdmin ? <>
-                        <li>
-                <NavLink to="/dashboard/userHome">
-                 <FaHouse></FaHouse>   
-                User Home</NavLink></li>
-               <li>
-                <NavLink to="/dashboard/reservation">
-                 <FaCalendar></FaCalendar>   
-                Reservation</NavLink></li>
-                <li>
-                <NavLink to="/dashboard/cart">
-                 <FaCartShopping></FaCartShopping>   
-                My Cart ({cart.length})</NavLink></li>
-               <li>
-                <NavLink to="/dashboard/review">
-                <MdRateReview />   
-                Add a Review</NavLink></li>
-               <li>
-                <NavLink to="/dashboard/booking">
-                 <FaList></FaList>   
-                My Booking</NavLink>
-                </li>
+                            <li>
+                                <NavLink to="/dashboard/userHome">
+                                    <FaHouse></FaHouse>
+                                    Admin Home</NavLink></li>
+                            <li>
+                                <NavLink to="/dashboard/reservation">
+                                    <FaUtensils></FaUtensils>
+                                    Add Items</NavLink></li>
+                            <li>
+                                <NavLink to="/dashboard/cart">
+                                    <FaList></FaList>
+                                    Manage Items</NavLink></li>
+                            <li>
+                                <NavLink to="/dashboard/review">
+                                    <FaBook />
+                                    Manage Booking</NavLink></li>
+                            <li>
+                                <NavLink to="/dashboard/booking">
+                                    <FaUsers></FaUsers>
+                                    All Users</NavLink>
+                            </li>
+
                         </>
                             :
                             <>
                                 <li>
                                     <NavLink to="/dashboard/userHome">
                                         <FaHouse></FaHouse>
-                                        Admin Home</NavLink></li>
+                                        User Home</NavLink></li>
                                 <li>
                                     <NavLink to="/dashboard/reservation">
-                                        <FaUtensils></FaUtensils>
-                                        Add Items</NavLink></li>
+                                        <FaCalendar></FaCalendar>
+                                        Reservation</NavLink></li>
                                 <li>
                                     <NavLink to="/dashboard/cart">
-                                        <FaList></FaList>
-                                        Manage Items</NavLink></li>
+                                        <FaCartShopping></FaCartShopping>
+                                        My Cart ({cart.length})</NavLink></li>
                                 <li>
                                     <NavLink to="/dashboard/review">
-                                        <FaBook />
-                                        Manage Booking</NavLink></li>
+                                        <MdRateReview />
+                                        Add a Review</NavLink></li>
                                 <li>
                                     <NavLink to="/dashboard/booking">
-                                        <FaUsers></FaUsers>
-                                        All Users</NavLink>
+                                        <FaList></FaList>
+                                        My Booking</NavLink>
                                 </li>
                             </>
                     }
@@ -76,14 +78,14 @@ const DashBoard = () => {
                         <NavLink to="/order/contact">
                             <MdContactMail />
                             Contact</NavLink>
-                            </li>
+                    </li>
                     <li>
                         <NavLink to="users">
                             <MdContactMail />
                             All users</NavLink>
-                            </li>
+                    </li>
                 </ul>
-                
+
             </div>
             {/* dashboard content */}
             <div className="flex- 1 p-8">
