@@ -6,6 +6,7 @@ import {  useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
+import Navbar from '../Sheard/Navbar/Navbar';
 
 
 
@@ -61,6 +62,7 @@ const Login = () => {
     
     return (
         <div>
+            <Navbar></Navbar>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col md:flex-row">
                     <div className="w-1/2 mr-12">
