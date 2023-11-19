@@ -8,6 +8,8 @@ const AddItems = () => {
     const onSubmit = (data) => {
         console.log(data)
     };
+
+  
     return (
         <div>
             <SectionTitle heading="add an item" subHeading="What's new"></SectionTitle>
