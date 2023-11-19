@@ -12,6 +12,8 @@ import PrivateRoute from "./PrivateRoute";
 import DashBoard from "../Layout/DashBoard";
 import Cart from "../pages/DashBoard/Cart/Cart";
 import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
+import AddItems from "../pages/DashBoard/AddItems/AddItems";
+import AdminRoute from "./AdminRoute";
 
 
 
@@ -58,8 +60,12 @@ import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
         },
         // admin routes
         {
+          path:'addItems',
+          element:<AdminRoute><AddItems></AddItems></AdminRoute>
+        },
+        {
           path:'users',
-          element:<AllUsers></AllUsers>
+          element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
         }
       ]
     }
