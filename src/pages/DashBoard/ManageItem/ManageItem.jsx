@@ -25,14 +25,14 @@ const ManageItem = () => {
                 // console.log(res.data);
                 if (res.data.deletedCount > 0) {
                     // refetch to update the ui
-                    refetch();
-                    // Swal.fire({
-                    //     position: "top-end",
-                    //     icon: "success",
-                    //     title: `${item.name} has been deleted`,
-                    //     showConfirmButton: false,
-                    //     timer: 1500
-                    // });
+                   refetch();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `${item.name} has been deleted`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
 
 

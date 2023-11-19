@@ -15,6 +15,7 @@ import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
 import AddItems from "../pages/DashBoard/AddItems/AddItems";
 import AdminRoute from "./AdminRoute";
 import ManageItem from "../pages/DashBoard/ManageItem/ManageItem";
+import UpdateItem from "../pages/DashBoard/UpdateItem/UpdateItem";
 
 
 
@@ -67,6 +68,10 @@ import ManageItem from "../pages/DashBoard/ManageItem/ManageItem";
         {
           path:'manageItem',
           element:<AdminRoute><ManageItem></ManageItem></AdminRoute>
+        },
+        {
+          path:'updateItem/:id',
+          element:<AdminRoute><UpdateItem></UpdateItem></AdminRoute>
         },
         {
           path:'users',
