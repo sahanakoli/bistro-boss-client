@@ -16,6 +16,7 @@ import AddItems from "../pages/DashBoard/AddItems/AddItems";
 import AdminRoute from "./AdminRoute";
 import ManageItem from "../pages/DashBoard/ManageItem/ManageItem";
 import UpdateItem from "../pages/DashBoard/UpdateItem/UpdateItem";
+import Payment from "../pages/DashBoard/Payment/Payment";
 
 
 
@@ -60,6 +61,10 @@ import UpdateItem from "../pages/DashBoard/UpdateItem/UpdateItem";
           path:'cart',
           element:<Cart></Cart>
         },
+        {
+          path:'payment',
+          element:<Payment></Payment>
+        },
         // admin routes
         {
           path:'addItems',
@@ -72,7 +77,7 @@ import UpdateItem from "../pages/DashBoard/UpdateItem/UpdateItem";
         {
           path:'updateItem/:id',
           element:<AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/menu/${params.id}`)
+          loader: ({params}) => fetch(`https://bistro-boss-server-ten-kappa.vercel.app/menu/${params.id}`)
         },
         {
           path:'users',
