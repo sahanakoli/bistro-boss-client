@@ -85,7 +85,7 @@ const CheckoutForm = () => {
                 refetch();
                 if(res.data.paymentResult?.insertedId){
                   Swal.fire({
-                    position: "top-end",
+                    position: "top-center",
                     icon: "success",
                     title: "Thank you for the payment",
                     showConfirmButton: false,
