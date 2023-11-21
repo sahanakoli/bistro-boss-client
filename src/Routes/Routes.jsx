@@ -17,6 +17,7 @@ import AdminRoute from "./AdminRoute";
 import ManageItem from "../pages/DashBoard/ManageItem/ManageItem";
 import UpdateItem from "../pages/DashBoard/UpdateItem/UpdateItem";
 import Payment from "../pages/DashBoard/Payment/Payment";
+import PaymentHistory from "../pages/DashBoard/PaymentHistory/PaymentHistory";
 
 
 
@@ -64,6 +65,10 @@ import Payment from "../pages/DashBoard/Payment/Payment";
         {
           path:'payment',
           element:<Payment></Payment>
+        },
+        {
+          path:'paymentHistory',
+          element:<PaymentHistory></PaymentHistory>
         },
         // admin routes
         {

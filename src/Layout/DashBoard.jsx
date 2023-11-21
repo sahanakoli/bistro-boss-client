@@ -46,9 +46,9 @@ const DashBoard = () => {
                                         <FaHouse></FaHouse>
                                         User Home</NavLink></li>
                                 <li>
-                                    <NavLink to="/dashboard/reservation">
+                                    <NavLink to="/dashboard/history">
                                         <FaCalendar></FaCalendar>
-                                        Reservation</NavLink></li>
+                                         History</NavLink></li>
                                 <li>
                                     <NavLink to="/dashboard/cart">
                                         <FaCartShopping></FaCartShopping>
@@ -58,9 +58,9 @@ const DashBoard = () => {
                                         <MdRateReview />
                                         Add a Review</NavLink></li>
                                 <li>
-                                    <NavLink to="/dashboard/booking">
+                                    <NavLink to="/dashboard/paymentHistory">
                                         <FaList></FaList>
-                                        My Booking</NavLink>
+                                        Real Payment History</NavLink>
                                 </li>
                             </>
                     }

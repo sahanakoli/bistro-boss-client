@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 const CheckoutForm = () => {
@@ -16,6 +17,7 @@ const CheckoutForm = () => {
    const axiosSecure = useAxiosSecure();
    const [cart, refetch] = useCart();
    const {user} = useAuth();
+   const navigate = useNavigate();
    const totalPrice = cart.reduce( (total, item) => total + item.price, 0) 
 
    useEffect(() =>{
@@ -83,7 +85,7 @@ const CheckoutForm = () => {
                 const res = await axiosSecure.post('/payments', payment);
                 console.log('payment save',res.data);
                 refetch();
-                if(res.data.paymentResult?.insertedId){
+                if(res.data?.paymentResult?.insertedId){
                   Swal.fire({
                     position: "top-center",
                     icon: "success",
@@ -91,6 +93,7 @@ const CheckoutForm = () => {
                     showConfirmButton: false,
                     timer: 1500
                   });
+                  navigate('/dashboard/paymentHistory')
                 }
             }
         }
@@ -113,7 +116,7 @@ const CheckoutForm = () => {
           },
         }}
       />
-      <button className="btn btn-primary" type="submit" disabled={!stripe || !clientSecret}>
+      <button className="btn btn-primary mt-4" type="submit" disabled={!stripe || !clientSecret}>
         Pay
       </button>
       <p className=" text-red-600">{error}</p>

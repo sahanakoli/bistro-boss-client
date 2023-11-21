@@ -6,7 +6,10 @@ import {  useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../Sheard/Navbar/Navbar';
+import Footer from '../Sheard/Footer/Footer';
+
 
 
 
@@ -33,14 +36,15 @@ const Login = () => {
            console.log(user);
            event.target.reset();
 
-           Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User Login Successfully",
-            showConfirmButton: false,
-            timer: 1500
-          });
+        //    Swal.fire({
+        //     position: "top-end",
+        //     icon: "success",
+        //     title: "User Login Successfully",
+        //     showConfirmButton: false,
+        //     timer: 1500
+        //   });
           navigate(from, { replace: true});
+          navigate('/');
         })
 
     }
@@ -63,6 +67,9 @@ const Login = () => {
     return (
         <div>
             <Navbar></Navbar>
+            <Helmet>
+                <title>Bistro Boss | Login</title>
+            </Helmet>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col md:flex-row">
                     <div className="w-1/2 mr-12">
@@ -103,6 +110,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Footer></Footer>
         </div>
     );
 };
