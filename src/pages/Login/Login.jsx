@@ -36,13 +36,13 @@ const Login = () => {
            console.log(user);
            event.target.reset();
 
-        //    Swal.fire({
-        //     position: "top-end",
-        //     icon: "success",
-        //     title: "User Login Successfully",
-        //     showConfirmButton: false,
-        //     timer: 1500
-        //   });
+           Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User Login Successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
           navigate(from, { replace: true});
           navigate('/');
         })
