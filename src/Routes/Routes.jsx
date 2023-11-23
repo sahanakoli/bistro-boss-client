@@ -20,6 +20,7 @@ import Payment from "../pages/DashBoard/Payment/Payment";
 import PaymentHistory from "../pages/DashBoard/PaymentHistory/PaymentHistory";
 import UserHome from "../pages/DashBoard/UserHome/UserHome";
 import AdminHome from "../pages/DashBoard/AdminHome/AdminHome";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 
 
@@ -29,6 +30,7 @@ import AdminHome from "../pages/DashBoard/AdminHome/AdminHome";
     {
       path: "/",
       element: <Main></Main>,
+      errorElement: <ErrorPage></ErrorPage>,
       children: [
         {
           path:'/',
